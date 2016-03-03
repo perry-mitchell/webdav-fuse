@@ -1,0 +1,29 @@
+{
+  "name": "webdav-fuse",
+  "version": "0.0.0",
+  "description": "Mount WebDAV directories locally",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perry-mitchell/webdav-fuse.git"
+  },
+  "keywords": [
+    "webdav",
+    "fuse",
+    "fs",
+    "mount"
+  ],
+  "author": "Perry Mitchell <perry@perrymitchell.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perry-mitchell/webdav-fuse/issues"
+  },
+  "homepage": "https://github.com/perry-mitchell/webdav-fuse#readme",
+  "dependencies": {
+    "fuse-bindings": "^2.8.1",
+    "webdav-fs": "^0.4.0"
+  }
+}
