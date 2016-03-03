@@ -15,12 +15,29 @@
         }
 
         mount() {
+            let client = this._client;
             fuse.mount(this._path, {
-                readdir: function (path, cb) {
-                console.log('readdir(%s)', path)
-                if (path === '/') return cb(0, ['test'])
-                cb(0)
-              },
+                readdir: (path, cb) => {
+                    console.log('readdir(%s)', path);
+                    // client.readdir(path, function(err, contents) {
+                    //     return err ? [] : contents;
+                    // });
+                    client.getDirContents(path)
+                        .then(function(contents) {
+                            console.log("CONTS", contents);
+                            (cb)(contents);
+                        })
+                        .catch(function(err) {
+                            (cb)([]);
+                        });
+                },
+
+
+            //   readdir: function (path, cb) {
+            //     console.log('readdir(%s)', path)
+            //     if (path === '/') return cb(0, ['test'])
+            //     cb(0)
+            //   },
               getattr: function (path, cb) {
                 console.log('getattr(%s)', path)
                 if (path === '/') {
@@ -36,7 +53,7 @@
                   return
                 }
 
-                if (path === '/test') {
+                //if (path === '/test') {
                   cb(0, {
                     mtime: new Date(),
                     atime: new Date(),
@@ -47,7 +64,7 @@
                     gid: process.getgid()
                   })
                   return
-                }
+                //}
 
                 cb(fuse.ENOENT)
               },
