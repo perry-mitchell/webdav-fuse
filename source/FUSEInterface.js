@@ -17,27 +17,27 @@
         mount() {
             let client = this._client;
             fuse.mount(this._path, {
-                readdir: (path, cb) => {
-                    console.log('readdir(%s)', path);
-                    // client.readdir(path, function(err, contents) {
-                    //     return err ? [] : contents;
-                    // });
-                    client.getDirContents(path)
-                        .then(function(contents) {
-                            console.log("CONTS", contents);
-                            (cb)(contents);
-                        })
-                        .catch(function(err) {
-                            (cb)([]);
-                        });
-                },
+                // readdir: (path, cb) => {
+                //     console.log('readdir(%s)', path);
+                //     // client.readdir(path, function(err, contents) {
+                //     //     return err ? [] : contents;
+                //     // });
+                //     client.getDirContents(path)
+                //         .then(function(contents) {
+                //             console.log("CONTS", contents);
+                //             (cb)(contents);
+                //         })
+                //         .catch(function(err) {
+                //             (cb)([]);
+                //         });
+                // },
 
 
-            //   readdir: function (path, cb) {
-            //     console.log('readdir(%s)', path)
-            //     if (path === '/') return cb(0, ['test'])
-            //     cb(0)
-            //   },
+              readdir: function (path, cb) {
+                console.log('readdir(%s)', path)
+                if (path === '/') return cb(0, ['test'])
+                cb(0)
+              },
               getattr: function (path, cb) {
                 console.log('getattr(%s)', path)
                 if (path === '/') {
@@ -74,7 +74,7 @@
               },
               read: function (path, fd, buf, len, pos, cb) {
                 console.log('read(%s, %d, %d, %d)', path, fd, len, pos)
-                var str = 'hello world\n'.slice(pos)
+                var str = 'this is my file!\n'.slice(pos)
                 if (!str) return cb(0)
                 buf.write(str)
                 return cb(str.length)
